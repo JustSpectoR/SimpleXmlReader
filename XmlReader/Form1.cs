@@ -19,17 +19,18 @@ namespace XmlReader
         {
             try
             {
-                //listBox1.Items.Clear(); // Очистка перед загрузкой
-
                 // Путь к XML
                 string xmlPath = "C:/MyStuff/csharp/info.xml";
 
+                // Открываем документ
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(xmlPath);
 
+                // Получаем список машин
                 XmlNodeList carNodes = xmlDoc.SelectNodes("//Car");
                 foreach (XmlNode node in carNodes)
                 {
+                    // Получаем их информацию
                     string manufacturer = node.SelectSingleNode("Manufacturer")?.InnerText;
                     string model = node.SelectSingleNode("Model")?.InnerText;
                     string year = node.SelectSingleNode("Year")?.InnerText;
@@ -47,21 +48,27 @@ namespace XmlReader
         {
             try
             {
+                // При смене выбранного элемента вызываем диалог открытия XML
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "XML Files|*.xml";
                 openFileDialog.Title = "Выберите XML файл";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string filePath = openFileDialog.FileName;
-                    listBox1.Items.Clear(); // Очистка списка перед загрузкой
 
+                    string filePath = openFileDialog.FileName;
+                    // Очистка списка перед загрузкой
+                    listBox1.Items.Clear();
+
+                    // Открываем документ
                     XmlDocument xmlDoc = new XmlDocument();
                     xmlDoc.Load(filePath);
 
-                    XmlNodeList carNodes = xmlDoc.SelectNodes("//Person");
+                    // Получаем список машин
+                    XmlNodeList carNodes = xmlDoc.SelectNodes("//Car");
                     foreach (XmlNode node in carNodes)
                     {
+                        // Получаем их информацию
                         string manufacturer = node.SelectSingleNode("Manufacturer")?.InnerText;
                         string model = node.SelectSingleNode("Model")?.InnerText;
                         string year = node.SelectSingleNode("Year")?.InnerText;
